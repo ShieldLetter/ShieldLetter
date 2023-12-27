@@ -12,21 +12,21 @@
         <link href="../static/css/board.css" rel="stylesheet" />
     </head>
     <body>
-        <!-- nav  -->
+        <!-- nav -->
         {% include "nav.html" %}
-        <!-- post -->
+        <!-- board_write -->
         <div class="container mt-5">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <!-- Post content-->
-                    <article>
-                        <form action="{{ url_for('answer.create', question_id=question.id) }}" method="post" class="my-3">
-                            <div class="mb-3">
-                                <textarea name="content" id="content" class="form-control" rows="10"></textarea>
-                            </div>
-                            <input type="submit" value="답변등록" class="btn btn-primary">
-                        </form>
-                    </article>
+                    <form>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">제목</label>
+                            <label for="content" class="form-label">답변내용</label>
+                            <label for="content" class="form-label">답변내용</label>
+                            <textarea name="content" id="content" class="form-control" rows="10" placeholder="내용을 입력해주세요."></textarea>
+                        </div>
+                        <input type="submit" value="등록" class="btn btn-primary">
+                    </form>
                 </div>
             </div>
         </div>
