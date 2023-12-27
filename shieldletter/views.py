@@ -11,3 +11,6 @@ def signup(request):
 
 def board(request):
     return render(request, 'board.html')
+
+def board_write(request):
+    return render(request, 'board_write.html')
