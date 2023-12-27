@@ -15,8 +15,8 @@ def index(request):
     return render(request, 'index.html', {'boardlist':boardlist})
 
 # 로그인
-def login(request):
-    return render(request, 'login.html')
+# def login(request):
+#    return render(request, 'login.html')
 
 # 회원가입
 def signup(request):
