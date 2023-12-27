@@ -7,8 +7,8 @@ def index(request):
     # index.html 페이지를 열 때, 모든 Post인 postlist도 같이 가져옵니다 
     return render(request, 'index.html', {'boardlist':boardlist})
 
-def login(request):
-    return render(request, 'login.html')
+# def login(request):
+#     return render(request, 'login.html')
 
 def signup(request):
     return render(request, 'signup.html')
