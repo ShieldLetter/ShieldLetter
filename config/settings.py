@@ -25,12 +25,13 @@ SECRET_KEY = "django-insecure-k@3!zdij-cv-z3k9(o6!1+__k=_4@_(+pptu6_687s9m+^n^%f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "shieldletter.apps.ShieldletterConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

@@ -21,7 +21,7 @@
           <th scope="col">조회수</th>
         </tr>
       </thead>
-      {% if content==0 %}
+      {% if content is 0 %}
       <tbody class="table-group-divider">
         <tr>
           <th scope="row">{{id}}</th>
@@ -32,6 +32,7 @@
           <td>{{view_count}}</td>
         </tr>
       </tbody>
+      {% endif %}
     </table>
   </div>
   <script src="../static/js/bootstrap.bundle.min.js"></script>
