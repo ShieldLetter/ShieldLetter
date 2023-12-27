@@ -34,13 +34,13 @@
         {% for board in boardlist %}
         <tr>
           <th scope="row">{{board.id}}</th>
-          <td>{{board.title}}</td>
+          <td><a href="board/{{board.id}}">{{board.title}}</a></td>
           <td>{{board.admin}}</td>
           <td>{{board.date|date:'Y-m-d'}}</td>
           <td>{{board.views}}</td>
-          {% endfor %}
-          {% else %}
-            <td colspan="6">등록된 게시물이 없습니다.</td>
+        {% endfor %}
+        {% else %}
+          <td colspan="6">등록된 게시물이 없습니다.</td>
       {% endif %}
         </tr>
       </tbody>
