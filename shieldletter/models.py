@@ -21,14 +21,14 @@ class Board(models.Model):
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.TextField()
-    views = models.IntegerField()
-    file = models.BinaryField(null=True)
+    views = models.IntegerField(default=0)
+    file = models.ImageField(upload_to='upload/',null=True)
     date = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=30)
     
     def __str__(self):
         return self.title
-    
+
 class Signup(models.Model):
     name = models.CharField(max_length=50)
     id = models.CharField(max_length=30)        

@@ -1,16 +1,21 @@
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 appname="shieldletter"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("login", views.login, name="login"),
+    path("board", views.index, name="index"),
+    path("login", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
+    path('logout', auth_views.LogoutView.as_view(), name='logout'),
     path("signup", views.signup, name="signup"),
-    path("board", views.board, name="board"),
-    
-    # URL:80/blog/숫자로 접속하면 게시글-세부페이지(posting)
-    path('blog/<int:pk>',views.board, name="board"),
-    path("board_write", views.board_write, name="board_write")
+    path("board/<int:id>", views.board_detail, name="board_detail"),
+    path("board_write/", views.board_write, name="board_write"),
 ]
+
+# 이미지 URL설정
+urlpatterns += static(settings.UPLOAD_URL, document_root=settings.UPLOAD_ROOT)
