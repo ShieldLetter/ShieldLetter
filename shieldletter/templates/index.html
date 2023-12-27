@@ -24,15 +24,20 @@
           <th scope="col">조회수</th>
         </tr>
       </thead>
-      {% if content is 0 %}
+      {% if board_list %}
       <tbody class="table-group-divider">
         <tr>
+          {% for board in board_list %}
           <th scope="row">{{id}}</th>
           <td>{{title}}</td>
           <td>{{content}}</td>
           <td>{{writer}}</td>
           <td>{{create_date}}</td>
           <td>{{view_count}}</td>
+          {% endfor %}
+          {% else %}
+            <td colspan="6">등록된 게시물이 없습니다.</td>
+          {% endif %}
         </tr>
       </tbody>
       {% endif %}
