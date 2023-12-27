@@ -263,6 +263,8 @@ kbd,
 samp {
   font-family: var(--bs-font-monospace);
   font-size: 1em;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 pre {
@@ -271,6 +273,9 @@ pre {
   margin-bottom: 1rem;
   overflow: auto;
   font-size: 0.875em;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+
 }
 pre code {
   font-size: inherit;
