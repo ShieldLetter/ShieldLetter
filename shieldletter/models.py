@@ -9,6 +9,8 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+
+
 class Admin(models.Model):
     admin_id = models.CharField(max_length=30, primary_key=True)
     admin_pw = models.CharField(max_length=100)
@@ -31,7 +33,7 @@ class Board(models.Model):
 
 class Signup(models.Model):
     name = models.CharField(max_length=50)
-    id = models.CharField(max_length=30)        
+    id = models.CharField(max_length=30, primary_key=True)        
     password = models.CharField(max_length=100)
     birthday = models.DateField()
     email = models.EmailField(max_length=50)

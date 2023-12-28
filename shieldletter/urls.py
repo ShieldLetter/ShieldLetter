@@ -4,6 +4,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.urls import path
+from .views import signup
 
 appname="shieldletter"
 
@@ -15,6 +17,10 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("board/<int:id>", views.board_detail, name="board_detail"),
     path("board_write/", views.board_write, name="board_write"),
+    path('admin', admin.site.urls),
+    path('signup/', signup, name='signup'),
+    
+
 ]
 
 # 이미지 URL설정
