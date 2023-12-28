@@ -9,7 +9,8 @@
 </head>
 <body class="text-center">
   <main class="form-signup w-100 m-auto">
-      <form>
+    <form method="post" action="/login">
+      {% csrf_token %}
         <img class="mb-4" src="../static/img/bootstrap-logo.svg" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">회원가입</h1>
         <div class="form-floating">
