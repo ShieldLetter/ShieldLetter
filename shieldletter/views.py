@@ -55,13 +55,13 @@ def board_detail(request, id):
     return render(request, 'board_detail.html', {'board':board, 'file_url':file_url})
 
 # 게시글 생성
-# @login_required
+@login_required
 def board_write(request):
     if request.method == 'POST':
         file = request.FILES.get('file') 
         if file:
             new_article = Board.objects.create(
-                admin_id = 'admin', # 로그인 구현 전까지 임시
+                name = User.name, 
                 category = request.POST['category'],
                 title = request.POST['title'],
                 content = request.POST['content'],
