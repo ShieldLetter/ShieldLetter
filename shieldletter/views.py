@@ -58,10 +58,11 @@ def board_detail(request, id):
 @login_required
 def board_write(request):
     if request.method == 'POST':
-        file = request.FILES.get('file') 
+        file = request.FILES.get('file')
+        user = request.user 
         if file:
             new_article = Board.objects.create(
-                name = User.name, 
+                name = user, 
                 category = request.POST['category'],
                 title = request.POST['title'],
                 content = request.POST['content'],
@@ -69,6 +70,7 @@ def board_write(request):
             )
         else:
             new_article = Board.objects.create(
+                name = user,
                 category = request.POST['category'],
                 title = request.POST['title'],
                 content = request.POST['content'],
