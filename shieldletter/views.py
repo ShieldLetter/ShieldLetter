@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from .forms import UserForm
 
 # 메인 - 게시글 리스트
 def index(request):
@@ -21,7 +22,17 @@ def index(request):
 
 # 회원가입
 def signup(request):
-    return render(request, 'signup.html')
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+        else:
+            print(form.errors)
+    else:
+        form = UserForm()
+    return render(request, 'signup.html', {'form': form})
 
 # 게시글 상세
 def board_detail(request, id):
