@@ -11,7 +11,7 @@
                 <li class="nav-item"><a class="nav-link" href="#!">정책</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">보안경보</a></li>
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="#!"><strong>{{user.user_id}}님</strong></a></li>
+                <li class="nav-item"><strong>{{user.user_id}}님</strong></li>
                 <li class="nav-item"><a class="btn btn btn-light btn-sm my-1" href="{% url 'logout' %}">로그아웃</a></li>
                 {% else %}   
                 <li class="nav-item"><a class="btn btn btn-light btn-sm my-1" href="/login">로그인</a></li>
