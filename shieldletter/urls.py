@@ -15,6 +15,8 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("board/<int:id>", views.board_detail, name="board_detail"),
     path("board_write/", views.board_write, name="board_write"),
+    path("board/<int:id>/update", views.board_update, name="board_update"),
+    path("board/<int:id>/delete", views.board_delete, name="board_delete"),
 ]
 
 # 이미지 URL설정

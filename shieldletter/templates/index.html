@@ -31,9 +31,9 @@
       {% if boardlist %}
       <tbody class="table-group-divider">
         {% for board in boardlist %}
-        <tr>
-          <th scope="row">{{board.id}}</th>
-          <td><a href="board/{{board.id}}">{{board.title}}</a></td>
+        <tr onclick="location.href='board/{{board.id}}'" style="cursor:pointer">
+          <th scope="row">{{board.no}}</th>
+          <td>{{board.title}}</td>
           <td>{{board.admin}}</td>
           <td>{{board.date|date:'Y-m-d'}}</td>
           <td>{{board.views}}</td>
@@ -72,8 +72,6 @@
       </ul>
     </nav>
   </div>
-  <!-- Footer-->
-  {% include "footer.html" %}
   <script src="../static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
