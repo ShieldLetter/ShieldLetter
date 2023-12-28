@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from os.path import abspath, dirname
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = dirname(dirname(abspath(__file__))) # 추가
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -121,12 +122,17 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
-
+STATIC_URL = "/static/"
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'shieldletter')
+# ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# 커스텀 User 모델 사용
+AUTH_USER_MODEL = 'shieldletter.User'
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
@@ -137,3 +143,4 @@ LOGOUT_REDIRECT_URL = '/'
 # 업로드된 이미지 파일이 저장될 공간
 UPLOAD_ROOT = os.path.join(BASE_DIR, 'upload')
 UPLOAD_URL = '/upload/'
+
