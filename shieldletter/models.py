@@ -37,6 +37,7 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class User(AbstractBaseUser):
     user_id = models.CharField(verbose_name='아이디', max_length=30, unique=True, primary_key=True)
     password = models.CharField(verbose_name='비밀번호', max_length=100)
@@ -63,18 +64,11 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-class Admin(models.Model):
-    admin_id = models.CharField(max_length=30, primary_key=True)
-    admin_pw = models.CharField(max_length=100)
-    admin_name = models.CharField(max_length=50)
-    def __str__(self):
-        return self.admin_name
-
+    
 class Board(models.Model):
     no = models.IntegerField(default=0) # 게시글 번호
     id = models.AutoField(primary_key=True)
-    admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    name = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     title = models.CharField(max_length=50)
     content = models.TextField()
     views = models.IntegerField(default=0)
