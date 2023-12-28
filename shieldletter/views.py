@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.core.paginator import Paginator
+from .forms import UserForm
 from django.http import FileResponse, Http404
 from django.conf import settings
 from django.db.models import Max
 import os
-from django.contrib.auth.forms import UserCreationForm
 
 
 # 메인 - 게시글 리스트
@@ -24,35 +25,22 @@ def index(request):
     return render(request, 'index.html', {'boardlist': boardlist})
 
 # 로그인
-def login(request):
-    return render(request, 'login.html')
+# def login(request):
+#    return render(request, 'login.html')
 
 # 회원가입
 def signup(request):
     if request.method == 'POST':
-        # 회원가입 폼 유효성 검사 및 처리
-        form = UserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('/login')
+            return redirect('index')
+        else:
+            print(form.errors)
     else:
-        form = UserCreationForm()
-        
-        if request.method == "POST":
-            print(request.POST)
-            username = request.POST["username"]
-            password = request.POST["password"]
-            phone_num = request.POST["phone_num"]
-            email = request.POST["email"]
-
-            user = User.objects.create_user(username, email, password)
-            user.phone_num = phone_num
-            user.save()
-            return redirect('login')
-       
-    return render(request, 'signup.html')
-    
+        form = UserForm()
+    return render(request, 'signup.html', {'form': form})
 
 # 게시글 상세
 @never_cache
