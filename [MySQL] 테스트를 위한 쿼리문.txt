@@ -1,0 +1,74 @@
+-- 스키마 생성
+create schema shieldletterdb default character set utf8;
+
+-- 스키마 사용
+use shieldletterdb
+
+-- 테이블 생성
+CREATE TABLE `User` (
+	`user_id`	VARCHAR(30)	NOT NULL,
+	`user_pw`	VARCHAR(100)	NOT NULL,
+	`username`	VARCHAR(50)	NOT NULL,
+	`phone_num`	VARCHAR(20)	NOT NULL,
+	`email`	VARCHAR(100)	NOT NULL
+);
+
+CREATE TABLE `Admin` (
+	`admin_id`	VARCHAR(30)	NOT NULL,
+	`admin_pw`	VARCHAR(100)	NOT NULL,
+	`admin_name`	VARCHAR(50)	NOT NULL
+);
+
+CREATE TABLE `Board` (
+	`id`	INTEGER	NOT NULL,
+	`admin_id`	VARCHAR(30)	NOT NULL,
+	`title`	VARCHAR(50)	NOT NULL,
+	`content`	TEXT	NOT NULL,
+	`views`	INTEGER	NOT NULL,
+	`file`	BLOB	NULL,
+	`date`	TIMESTAMP	NOT NULL,
+	`category`	VARCHAR(30)	NOT NULL
+);
+
+ALTER TABLE `User` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
+	`user_id`
+);
+
+ALTER TABLE `Admin` ADD CONSTRAINT `PK_ADMIN` PRIMARY KEY (
+	`admin_id`
+);
+
+ALTER TABLE `Board` ADD CONSTRAINT `PK_BOARD` PRIMARY KEY (
+	`id`,
+	`admin_id`
+);
+
+ALTER TABLE `Board` ADD CONSTRAINT `FK_Admin_TO_Board_1` FOREIGN KEY (
+	`admin_id`
+)
+REFERENCES `Admin` (
+	`admin_id`
+);
+
+-- 유저 생성
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+
+-- 유저에게 권한 부여
+GRANT ALL PRIVILEGES ON shieldletterdb.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
+
+==================================================================
+스키마 이름, 생성한 유저의 이름, 패스워드, 호스트 또는 포트 번호가 다른 경우 
+ShieldLetter/config/settings.py 로 들어가서 DATABASES 부분을 수정하면 됩니다.
+
+ DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '스키마 이름',
+        'USER' : '아이디',
+        'PASSWORD' : '비밀번호',
+        'HOST' : '127.0.0.1',
+        'PORT' : '3306',
+    }
+}
+==================================================================
