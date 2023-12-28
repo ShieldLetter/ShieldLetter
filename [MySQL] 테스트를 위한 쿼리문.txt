@@ -2,7 +2,7 @@
 create schema shieldletterdb default character set utf8;
 
 -- 스키마 사용
-use shieldletterdb
+use shieldletterdb;
 
 -- 유저 생성
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
