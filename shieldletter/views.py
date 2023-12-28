@@ -78,18 +78,6 @@ def board_write(request):
         return redirect('index')
     return render(request, 'board_write.html')
 
-# 파일 다운로드
-def download_file(request, path):
-    if not path:
-        raise Http404
-    file_path = os.path.join(settings.UPLOAD_ROOT, path)
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = FileResponse(fh, content_type='application/octet-stream')
-            return response
-    else:
-        raise Http404
-
 # 게시글 수정
 def board_update(request, id):
     board = Board.objects.get(pk=id)
