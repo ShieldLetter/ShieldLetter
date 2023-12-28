@@ -131,6 +131,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# 커스텀 User 모델 사용
+AUTH_USER_MODEL = 'shieldletter.User'
+
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
 
