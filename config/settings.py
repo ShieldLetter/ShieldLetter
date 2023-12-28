@@ -79,10 +79,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shieldletterdb',
-        'USER' : 'user',
+        'NAME': 'ShieldLetter',
+        'USER' : 'admin',
         'PASSWORD' : 'password',
-        'HOST' : '127.0.0.1',
+        'HOST' : 'db-sl.cusvmkdzn4ya.ap-southeast-2.rds.amazonaws.com',
         'PORT' : '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
