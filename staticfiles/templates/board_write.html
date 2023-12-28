@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>게시글 작성페이지</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    </head>
+    <body>
+        <!-- nav -->
+        {% include "nav.html" %}
+        <!-- board_write -->
+        <div class="container mt-5" style="height:100vh">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <select class="form-select" name="category" aria-label="Default select example">
+                                <option selected>분류</option>
+                                <option value="국내보안">국내보안</option>
+                                <option value="국제보안">국제보안</option>
+                                <option value="정책">정책</option>
+                                <option value="보안경보">보안경보</option>
+                            </select>
+                            <label for="title" class="form-label"></label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요">
+                            <label for="content" class="form-label"></label>
+                            <textarea class="form-control" id="content" name="content" rows="30" placeholder="내용을 입력해주세요"></textarea>
+                            <label for="file" class="form-label"></label>
+                            <input class="form-control" type="file" id="file" name="file">
+                        </div>
+                        <div class="d-flex gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">글쓰기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>게시글 상세페이지</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    </head>
+    <body>
+        <!-- nav  -->
+        {% include "nav.html" %}
+        <!-- post -->
+        <div class="container mt-5" style="height:100vh">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-2">{{board.title}}</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted mb-2">작성일 : {{board.date|date:'Y-m-d'}}</div>
+                            <!-- Post categories-->
+                            <a class="badge bg-secondary text-decoration-none link-light">{{board.category}}</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4">
+                            {% if board.file %}
+                                <img class="img-fluid rounded" src="{{board.file.url}}" />
+                            {% else %}
+                            <img class="img-fluid rounded" src="../static/img/no_image.png" alt="..." />
+                            {% endif %}
+                        </figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4">{{board.content|linebreaksbr}}</p>
+                            <div class="d-flex gap-2 d-md-flex justify-content-md-end">
+                                {% if file_url %}
+                                <a href="{{board.file.url}}" role="button" class="btn btn-outline-primary" download>
+                                    <div class="d-flex align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                          </svg>
+                                        &nbsp;다운로드
+                                    </div>
+                                </a>
+                                {% endif %}
+                                {% if request.user.is_superuser %}
+                                <a href="{{board.id}}/update" role="button" class="btn btn-primary">수정</a>
+                                <a href="{{board.id}}/delete" role="button" class="btn btn-dark">삭제</a>
+                                {% endif %}
+                            </div>
+                            
+                        </section>
+                        
+                    </article>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+    </body>
+</html>

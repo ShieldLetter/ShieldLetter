@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>메인화면</title>
+</head>
+<body class="text-center">
+  <!-- nav  -->
+  {% include "nav.html" %}
+  <!-- board list-->
+  <div class="container mt-5" style="height:80vh">
+    <h1 class="h3 mb-4 fw-normal">주요 뉴스</h1>
+    <div class="d-flex gap-2 d-md-flex justify-content-md-end">
+      {% if user.is_superuser %}
+        <a href="/board_write" class="btn btn-secondary btn-sm">글쓰기</a>
+      {% endif %}
+    </div>
+    <table class="table table-striped table-hover" style="table-layout:fixed">
+      <thead>
+        <tr>
+          <th scope="col" width=50 height=100>no</th>
+          <th scope="col">제목</th>
+          <th scope="col" width=80 height=100>작성자</th>
+          <th scope="col" width=100 height=100>작성일</th>
+          <th scope="col" width=70 height=100>조회수</th>
+        </tr>
+      </thead>
+      {% if boardlist %}
+      <tbody class="table-group-divider">
+        {% for board in boardlist %}
+        <tr onclick="location.href='board/{{board.id}}'" style="cursor:pointer">
+          <th scope="row">{{board.no}}</th>
+          <td>{{board.title}}</td>
+          <td>{{board.admin}}</td>
+          <td>{{board.date|date:'Y-m-d'}}</td>
+          <td>{{board.views}}</td>
+        {% endfor %}
+        {% else %}
+          <td colspan="6">등록된 게시물이 없습니다.</td>
+      {% endif %}
+        </tr>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if boardlist.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ boardlist.previous_page_number }}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        {% endif %}
+        {% for i in boardlist.paginator.page_range %}
+        <li class="page-item {% if boardlist.number == i %}active{% endif %}">
+          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
+        {% endfor %}
+        {% if boardlist.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ boardlist.next_page_number }}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+</body>
+</html>
