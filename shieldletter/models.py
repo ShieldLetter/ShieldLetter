@@ -37,7 +37,6 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class User(AbstractBaseUser):
     user_id = models.CharField(verbose_name='아이디', max_length=30, unique=True, primary_key=True)
     password = models.CharField(verbose_name='비밀번호', max_length=100)

@@ -1,15 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.core.paginator import Paginator
 from .forms import UserForm
-from django.http import FileResponse, Http404
 from django.conf import settings
 from django.db.models import Max
 import os
-
+from django.contrib import messages
 
 # 메인 - 게시글 리스트
 def index(request):
@@ -39,9 +38,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 # 게시글 상세
-@never_cache
 def board_detail(request, id):
-    board = Board.objects.get(pk=id)
+    board = get_object_or_404(Board, pk=id)
     
     if board.file and hasattr(board.file,'url'):
         file_url = board.file.url
@@ -57,44 +55,53 @@ def board_detail(request, id):
 # 게시글 생성
 @login_required
 def board_write(request):
-    if request.method == 'POST':
-        file = request.FILES.get('file')
-        user = request.user 
-        if file:
-            new_article = Board.objects.create(
-                name = user, 
-                category = request.POST['category'],
-                title = request.POST['title'],
-                content = request.POST['content'],
-                file = file,
-            )
-        else:
-            new_article = Board.objects.create(
-                name = user,
-                category = request.POST['category'],
-                title = request.POST['title'],
-                content = request.POST['content'],
-            )
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            file = request.FILES.get('file')
+            user = request.user
+            if file:
+                new_article = Board.objects.create(
+                    name = user, 
+                    category = request.POST['category'],
+                    title = request.POST['title'],
+                    content = request.POST['content'],
+                    file = file,
+                )
+            else:
+                new_article = Board.objects.create(
+                    name = user,
+                    category = request.POST['category'],
+                    title = request.POST['title'],
+                    content = request.POST['content'],
+                )
+            return redirect('index')
+        return render(request, 'board_write.html')
+    else:
         return redirect('index')
-    return render(request, 'board_write.html')
 
 # 게시글 수정
 def board_update(request, id):
     board = Board.objects.get(pk=id)
-    if request.method == 'POST':
-        file = request.FILES.get('file') 
-        if file:
-            board.file = file
-        board.category = request.POST['category']
-        board.title = request.POST['title']
-        board.content = request.POST['content']
-        board.save()
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            file = request.FILES.get('file') 
+            if file:
+                board.file = file
+            board.category = request.POST['category']
+            board.title = request.POST['title']
+            board.content = request.POST['content']
+            board.save()
+            return redirect('index')
+        return render(request, 'board_update.html', {'board':board})
+    else:
         return redirect('index')
-    return render(request, 'board_update.html', {'board':board})
 
 # 게시글 삭제
 def board_delete(request, id):
-    board = Board.objects.get(pk=id)
-    board.is_deleted = True
-    board.save()
-    return redirect('index')
+    if request.user.is_superuser:
+        board = Board.objects.get(pk=id)
+        board.is_deleted = True
+        board.save()
+        return redirect('index')
+    else:
+        return redirect('index')

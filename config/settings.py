@@ -100,9 +100,6 @@ DATABASES = {
         'PASSWORD' : 'password',
         'HOST' : 'db-sl.cusvmkdzn4ya.ap-southeast-2.rds.amazonaws.com',
         'PORT' : '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
     }
 }
 
@@ -144,12 +141,10 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'shieldletter/static')
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    BASE_DIR / 'static'
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 
 
 # Default primary key field type
