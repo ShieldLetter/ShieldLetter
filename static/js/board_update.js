@@ -7,7 +7,10 @@
         var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
         var submitButton = document.getElementById('submit');
 
-        if (!title || !content || !allowedExtensions.exec(filePath)) {
+        var existingFile = '{{ board.file.name|basename }}';
+        var existingFileExtension = existingFile.split('.').pop();
+
+        if (!title || !content || (!allowedExtensions.exec(filePath) && !allowedExtensions.exec(existingFileExtension))) {
             submitButton.disabled = true;
             return false;
         } else {
