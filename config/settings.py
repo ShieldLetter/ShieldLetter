@@ -76,20 +76,35 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# local env
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'shieldletterdb',
+#         'USER' : 'user',
+#         'PASSWORD' : 'password',
+#         'HOST' : '127.0.0.1',
+#         'PORT' : '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
+
+# RDS env
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shieldletterdb', 
-        'USER' : 'user',
+        'NAME': 'ShieldLetter',
+        'USER' : 'admin',
         'PASSWORD' : 'password',
-        'HOST' : '127.0.0.1',
-        #'NAME': 'ShieldLetter',
-        #'USER' : 'admin',
-        #'PASSWORD' : 'password',
-        #'HOST' : 'db-sl.cusvmkdzn4ya.ap-southeast-2.rds.amazonaws.com',
+        'HOST' : 'db-sl.cusvmkdzn4ya.ap-southeast-2.rds.amazonaws.com',
         'PORT' : '3306',
     }
 }
+
+
+
 
 
 # Password validation
@@ -130,6 +145,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
