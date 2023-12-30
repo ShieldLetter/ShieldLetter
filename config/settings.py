@@ -72,6 +72,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+# Session
+SESSION_COOKIE_AGE = 1800   # 세션 유지 시간 30분
+SESSION_SAVE_EVERY_REQUEST = True   # 활동 중에 만료되지 않음
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -91,7 +94,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 #     }
 # }
 
-# RDS env
+RDS env
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
