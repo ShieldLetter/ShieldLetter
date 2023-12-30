@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "axes", # django-axes 추가
+]
+# 추가
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',  # should be the first backend
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",  # django-axes 미들웨어 추가
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -73,41 +80,45 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Session
-SESSION_COOKIE_AGE = 1800   # 세션 유지 시간 30분
+SESSION_COOKIE_AGE = 1800           # 세션 유지 시간 30분
 SESSION_SAVE_EVERY_REQUEST = True   # 활동 중에 만료되지 않음
+
+# AXES
+AXES_LOCKOUT_PARAMETERS = ["username"]  # username 으로만 차단
+AXES_FAILURE_LIMIT = 10                 # 로그인 실패 횟수(5회): 2씩 증가 해결 보류
+AXES_COOLOFF_TIME = 0.05                # 잠금 시간(=3분)
+AXES_RESET_ON_SUCCESS = True            # 로그인 성공 시 횟수 초기화
+AXES_LOCKOUT_TEMPLATE = 'lockout.html'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # local env
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'shieldletterdb',
-#         'USER' : 'user',
-#         'PASSWORD' : 'password',
-#         'HOST' : '127.0.0.1',
-#         'PORT' : '3306',
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#         },
-#     }
-# }
-
-RDS env
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ShieldLetter',
-        'USER' : 'admin',
+        'NAME': 'shieldletterdb',
+        'USER' : 'user',
         'PASSWORD' : 'password',
-        'HOST' : 'db-sl.cusvmkdzn4ya.ap-southeast-2.rds.amazonaws.com',
+        'HOST' : '127.0.0.1',
         'PORT' : '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
-
-
+# RDS env
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ShieldLetter',
+#         'USER' : 'admin',
+#         'PASSWORD' : 'password',
+#         'HOST' : 'db-sl.cusvmkdzn4ya.ap-southeast-2.rds.amazonaws.com',
+#         'PORT' : '3306',
+#     }
+# }
 
 
 # Password validation
