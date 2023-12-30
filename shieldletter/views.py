@@ -6,9 +6,6 @@ from django.views.decorators.cache import never_cache
 from django.core.paginator import Paginator
 from .forms import UserForm
 from django.conf import settings
-from django.db.models import Max
-import os
-from django.contrib import messages
 
 # 메인 - 게시글 리스트
 def index(request):
@@ -80,6 +77,7 @@ def board_write(request):
         return redirect('index')
 
 # 게시글 수정
+@login_required
 def board_update(request, id):
     board = Board.objects.get(pk=id)
     if request.user.is_superuser:
@@ -97,6 +95,7 @@ def board_update(request, id):
         return redirect('index')
 
 # 게시글 삭제
+@login_required
 def board_delete(request, id):
     if request.user.is_superuser:
         board = Board.objects.get(pk=id)
