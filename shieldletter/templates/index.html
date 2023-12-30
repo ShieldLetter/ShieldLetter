@@ -34,7 +34,8 @@
           <td>{{board.views}}</td>
         {% endfor %}
         {% else %}
-          <td colspan="6">등록된 게시물이 없습니다.</td>
+          <!-- 등록된 게시물이 없는 경우 나타나는 <td>에 colspan 값 수정  -->
+          <td colspan="5">등록된 게시물이 없습니다.</td>
       {% endif %}
         </tr>
       </tbody>
