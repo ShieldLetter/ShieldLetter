@@ -90,6 +90,7 @@ DATABASES = {
          },
      }
 }
+
 # RDS env
 # DATABASES = {
 #    'default': {
