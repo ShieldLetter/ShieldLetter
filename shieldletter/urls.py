@@ -6,7 +6,6 @@ from django.conf import settings
 from django.urls import path
 from django.views.decorators.cache import never_cache
 
-
 appname="shieldletter"
 
 urlpatterns = [
