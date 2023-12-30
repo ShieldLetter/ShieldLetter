@@ -90,9 +90,8 @@ DATABASES = {
          },
      }
 }
-
 # RDS env
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql',
 #        'NAME': 'ShieldLetter',
@@ -102,7 +101,6 @@ DATABASES = {
 #        'PORT' : '3306',
 #    }
 #}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -142,6 +140,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
