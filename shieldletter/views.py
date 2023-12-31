@@ -12,7 +12,6 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView   # 추가
 from axes.handlers.proxy import AxesProxyHandler
 
-
 # 메인 - 게시글 리스트
 def index(request):
     boardlist = Board.objects.filter(is_deleted=False).order_by('-date')
@@ -109,6 +108,7 @@ def board_write(request):
         return redirect('index')
 
 # 게시글 수정
+@login_required
 def board_update(request, id):
     board = Board.objects.get(pk=id)
     if request.user.is_superuser:
@@ -126,6 +126,7 @@ def board_update(request, id):
         return redirect('index')
 
 # 게시글 삭제
+@login_required
 def board_delete(request, id):
     if request.user.is_superuser:
         board = Board.objects.get(pk=id)

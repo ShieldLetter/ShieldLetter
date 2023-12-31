@@ -95,17 +95,17 @@ AXES_LOCKOUT_TEMPLATE = 'lockout.html'
 
 # local env
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shieldletterdb',
-        'USER' : 'user',
-        'PASSWORD' : 'password',
-        'HOST' : '127.0.0.1',
-        'PORT' : '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'shieldletterdb',
+         'USER' : 'user',
+         'PASSWORD' : 'password',
+         'HOST' : '127.0.0.1',
+         'PORT' : '3306',
+         'OPTIONS': {
+             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+         },
+     }
 }
 
 # RDS env
@@ -119,7 +119,6 @@ DATABASES = {
 #         'PORT' : '3306',
 #     }
 # }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -178,4 +177,3 @@ LOGOUT_REDIRECT_URL = '/'
 # 업로드된 이미지 파일이 저장될 공간
 UPLOAD_ROOT = os.path.join(BASE_DIR, 'upload')
 UPLOAD_URL = '/upload/'
-

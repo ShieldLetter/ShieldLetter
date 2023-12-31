@@ -9,36 +9,92 @@
 {% block content %}
 <body class="text-center">
   <main class="form-signup w-100 m-auto">
-      <form method="post">
-        {% csrf_token %}
-        <img class="mb-4" src="../static/img/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">회원가입</h1>
-        <div class="form-floating">
+    <form method="post" name="signup"><!-- 회원가입 폼에 name 추가 -->
+      {% csrf_token %}
+      <img class="mb-4" src="../static/img/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+      <div class="form-floating">
           <input type="text" class="form-control" id="{{ form.user_id.id_for_label }}" name="{{ form.user_id.html_name }}" placeholder="id" value="{{ form.user_id.value|default_if_none:'' }}" required>
           <label for="{{ form.user_id.id_for_label }}">아이디</label>
-        </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="{{ form.password1.id_for_label }}" name="{{ form.password1.html_name }}" placeholder="Password" value="{{ form.password1.value|default_if_none:'' }}" required>
+      </div>
+      <!-- (추가) 아이디 에러 팝업 -->
+      {% if form.user_id.errors %}
+      <div class="alert alert-danger mt-1 d-flex align-items-center justify-content-start" style="font-size: 0.875em; text-align: left;">
+        {% for error in form.user_id.errors %}
+        <p class="m-0 d-flex align-items-center justify-content-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+          </svg>
+          &nbsp;{{ error }}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-floating">
+          <input type="password" class="form-control mb-0" id="{{ form.password1.id_for_label }}" name="{{ form.password1.html_name }}" placeholder="Password" value="{{ form.password1.value|default_if_none:'' }}" required>
           <label for="{{ form.password1.id_for_label }}">비밀번호</label>
-        </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" placeholder="Password" value="{{ form.password2.value|default_if_none:'' }}" required>
+      </div>
+      <!-- (추가) 비밀번호 유효성 에러 팝업 -->
+      {% if form.password1.errors %}
+      <div class="alert alert-danger mt-1 d-flex flex-column align-items-start justify-content-center" style="font-size: 0.875em; text-align: left;">
+        {% for error in form.password1.errors %}
+        <p class="m-0 d-flex align-items-center justify-content-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+          </svg>
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-floating">
+          <input type="password" class="form-control mb-0" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" placeholder="Password" value="{{ form.password2.value|default_if_none:'' }}" required>
           <label for="{{ form.password2.id_for_label }}">비밀번호 확인</label>
-        </div>
-        <div class="form-floating">
+      </div>
+      <!-- (추가) 비밀번호 일치하지 않을 경우 발생하는 에러 팝업 -->
+      {% if form.password2.errors %}
+      <div class="mt-1 alert alert-danger d-flex flex-column align-items-start justify-content-center" style="font-size: 0.875em; text-align: left;">
+        {% for error in form.password2.errors %}
+        <p class="m-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+          </svg>
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-floating">
           <input type="text" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" placeholder="name" value="{{ form.name.value|default_if_none:'' }}" required>
           <label for="{{ form.name.id_for_label }}">이름</label>
-        </div>
-        <div class="form-floating">
+      </div>
+      <div class="form-floating">
           <input type="text" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}" placeholder="Email" value="{{ form.email.value|default_if_none:'' }}" required>
           <label for="{{ form.email.id_for_label }}">이메일</label>
-        </div>
-        <div class="form-floating">
+      </div>
+      <!-- (추가) 이메일 에러 팝업 -->
+      {% if form.email.errors %}
+      <div class="alert alert-danger mt-1 d-flex align-items-center justify-content-start" style="font-size: 0.875em; text-align: left;">
+        {% for error in form.email.errors %}
+        <p class="m-0 d-flex align-items-center justify-content-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+          </svg>
+          &nbsp;{{ error }}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-floating">
           <input type="text" class="form-control" id="{{ form.phone_num.id_for_label }}" name="{{ form.phone_num.html_name }}" placeholder="Phonenumber" value="{{ form.phone_num.value|default_if_none:'' }}" required>
           <label for="{{ form.phone_num.id_for_label }}">전화번호</label>
-        </div>
-        <button class="my-3 w-100 btn btn-lg btn-primary" type="submit">완료</button>
-      </form>
+      </div>
+      <button class="my-3 w-100 btn btn-lg btn-primary" type="submit">완료</button>
+    </form>
   </main>
   {% block script %}
   {{ block.super }}
