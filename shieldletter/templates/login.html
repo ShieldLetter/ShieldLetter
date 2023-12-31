@@ -9,6 +9,7 @@
 {% block content %}
 <body class="text-center">
   <main class="form-signin w-100 m-auto">
+      {% block lockout_message %}{% endblock %}
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <img class="mb-4" src="../static/img/bootstrap-logo.svg" alt="" width="72" height="57">
@@ -23,6 +24,19 @@
         </div>
         <button type="submit" class="w-100 btn btn-lg btn-primary" id="loginBtn" disabled>로그인</button>
         <a href="{% url 'signup' %}" class="link-secondary">회원가입</a>
+        <!-- error -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+          {% for error in form.non_field_errors %}
+          {{ error }}
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if attempts %}
+        <div class="alert alert-info" role="alert">
+          로그인 실패 횟수: {{ attempts }}/5
+        </div>
+        {% endif %}
       </form>
       <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
