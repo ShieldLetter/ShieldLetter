@@ -6,6 +6,11 @@ from django.views.decorators.cache import never_cache
 from django.core.paginator import Paginator
 from .forms import UserForm
 from django.conf import settings
+from django.db.models import Max
+import os
+from django.contrib import messages
+from django.contrib.auth.views import LoginView   # 추가
+from axes.handlers.proxy import AxesProxyHandler
 
 # 메인 - 게시글 리스트
 def index(request):
@@ -20,12 +25,38 @@ def index(request):
 
     return render(request, 'index.html', {'boardlist': boardlist})
 
+# 로그인
+class CustomLoginView(LoginView):
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(
+            request=request,
+            username=username,
+            password=password,
+        )
+
+        if user is not None:
+            user.backend = 'axes.backends.AxesStandaloneBackend'
+            login(request, user)
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        locked = AxesProxyHandler.is_locked(request=self.request)
+        attempts = AxesProxyHandler.get_failures(request=self.request)
+        context['locked'] = locked
+        context['attempts'] = attempts//2
+        return context
+
 # 회원가입
 def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return redirect('index')
         else:
