@@ -103,7 +103,7 @@ $ git clone https://github.com/ShieldLetter/ShieldLetter.git
 $ cd ShieldLetter
 ```
 
-### MySQL
+### MySQL Server
 ```sql
 -- 스키마 생성
 create schema shieldletterdb default character set utf8;
@@ -119,7 +119,7 @@ GRANT ALL PRIVILEGES ON shieldletterdb.* TO 'user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-### Setting 설정
+### settings.py 설정
 스키마 이름, 유저 아이디, 패스워드, 호스트 또는 포트 번호가 다른 경우  `ShieldLetter/config/settings.py` 로 들어가서 `DATABASES` 부분을 수정하면 됩니다.
 
 ```python
