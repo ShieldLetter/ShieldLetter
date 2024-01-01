@@ -120,18 +120,22 @@ FLUSH PRIVILEGES;
 ```
 
 ### settings.py 설정
-스키마 이름, 유저 아이디, 패스워드, 호스트 또는 포트 번호가 다른 경우  `ShieldLetter/config/settings.py` 로 들어가서 `DATABASES` 부분을 수정하면 됩니다.
+`ShieldLetter/config/settings.py` 파일에 `DATABASES`의 `local env` 부분의 주석을 해제하면 됩니다.
 
 ```python
- DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '스키마 이름', # shieldletterdb
-        'USER' : '아이디', # user
-        'PASSWORD' : '비밀번호', # password
-        'HOST' : '127.0.0.1',
-        'PORT' : '3306',
-    }
+# local env
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'shieldletterdb',
+         'USER' : 'user',
+         'PASSWORD' : 'password',
+         'HOST' : '127.0.0.1',
+         'PORT' : '3306',
+         'OPTIONS': {
+             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+         },
+     }
 }
 ```
 
