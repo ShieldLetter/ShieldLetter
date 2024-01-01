@@ -146,5 +146,13 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
+### Django 관리자 계정 생성 방법
+```python
+$ python manage.py createsuperuser
+```
 
+### Django 관리자페이지 URL
+```
+shieldletter-hidden-panel/
+```
 

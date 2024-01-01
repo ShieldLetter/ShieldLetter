@@ -67,7 +67,7 @@ def signup(request):
 
 # 게시글 상세
 def board_detail(request, id):
-    board = get_object_or_404(Board, pk=id)
+    board = get_object_or_404(Board, pk=id, is_deleted=False) # 삭제된 게시글의 경우 404에러 발생
     
     if board.file and hasattr(board.file,'url'):
         file_url = board.file.url
