@@ -103,6 +103,38 @@ $ git clone https://github.com/ShieldLetter/ShieldLetter.git
 $ cd ShieldLetter
 ```
 
+### MySQL
+```sql
+-- 스키마 생성
+create schema shieldletterdb default character set utf8;
+
+-- 스키마 사용
+use shieldletterdb;
+
+-- 유저 생성
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+
+-- 유저에게 권한 부여
+GRANT ALL PRIVILEGES ON shieldletterdb.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+### Setting 설정
+스키마 이름, 생성한 유저의 이름, 패스워드, 호스트 또는 포트 번호가 다른 경우 
+ShieldLetter/config/settings.py 로 들어가서 DATABASES 부분을 수정하면 됩니다.
+
+```python
+ DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '스키마 이름', # shieldletterdb
+        'USER' : '아이디', # user
+        'PASSWORD' : '비밀번호', # password
+        'HOST' : '127.0.0.1',
+        'PORT' : '3306',
+    }
+}
+```
 
 ### App Run
 ```python
